@@ -1,0 +1,73 @@
+body{
+    margin-top: 100px;
+    padding: 10px 10px 10px 10px;
+    background: #1693AF;
+  color: #fff;
+  
+}
+
+
+h1{
+    text-align: center;
+    align-items: center;
+}
+form{
+    align-items: center;
+    text-align: center;
+}
+#phoneauth{
+border: #82d1e0;
+background-color: #03343e;
+font-weight: 500;
+width: 100px;
+border-radius: 6px;
+font-size: medium;
+cursor: pointer;
+color: white;
+height: 40px;
+
+}
+#recaptcha-container{
+    text-align: center;
+    align-items: center;
+    padding-left: 40%;
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+}
+input{
+    
+    padding-bottom: 10px;
+    border-radius: 4px;
+    width: 20%;
+}
+#verify{
+    border: #82d1e0;
+background-color: #03343e;
+font-weight: 500;
+width: 100px;
+border-radius: 6px;
+font-size: medium;
+cursor: pointer;
+color: white;
+height: 30px;
+
+}
+
+@media (max-width: 850px) {
+    body{
+        margin-top: 10px;
+    }
+    form{
+        padding: 0px;
+        text-align: left;
+        align-items: left
+
+    }
+    #recaptcha-container{
+        padding-left: 3px;
+    }
+    input{
+        width: 50%;
+    }
+}
