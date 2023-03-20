@@ -1,0 +1,13 @@
+h3{
+    text-align: center;
+    padding-left: 0;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    color: black;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    transition-duration: 1s;
+}
+h3:hover{
+    color: rgb(108, 208, 130);
+    font-size: 30px;
+}
