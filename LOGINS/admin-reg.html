@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Register</title>
+    <style>
+        *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+
+}
+body{
+    background-image: linear-gradient(to top,#222539 0%, #191c2f 95%);
+    background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+.background{
+    width: 97vw;
+    height: 100vh;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+
+.admin_reg{
+    /* display: none; */
+    height: 60vh;
+    width: 26vw;
+    background-color: rgb(12, 12, 12);
+    border-top:3px solid rgb(255, 47, 200);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    /* backdrop-filter: blur(10px); */
+    /* border: 2px solid rgba(255,255,255,0.1); */
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+.admin_reg *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+.admin_reg h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 12%;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #e5e5e5;
+}
+.admin_reg button{
+    margin-top: 30px;
+    width: 90%;
+    background-color: #b86975;
+    color: #080710;
+    padding: 14px 0;
+    margin-left: 5%;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 300ms;
+    
+}
+
+.admin_reg button:hover{
+    background-color: rgb(171, 171, 171);
+    
+}
+#result-box{
+    color: white;
+    display: block;
+
+}
+#result{
+    margin-top: 3%;
+    text-align: center;
+
+}
+.admin_reg input:invalid{
+    border: none;
+    outline: 2px solid red;
+}
+
+
+
+@media (max-width:500px){
+    .admin_reg{
+        width:310px ;
+        height: 510px;
+    }
+}
+@media (min-width:500px){
+    .admin_reg{
+        width: 340px;
+    }
+}
+    </style>
+</head>
+<body>
+    <form class="admin_reg" id="admin-signup">
+        <h3>Sign Up</h3>
+
+        <label for="name">Username</label>
+        <input type="text" placeholder="enter username" id="signup-username" >
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="enter email" id="signup-email" >
+
+        <label for="pass">Password</label>
+        <input type="password" placeholder="enter password" id="signup-password">
+
+        <button type="button" id="done">Submit</button>
+
+        
+    </form>
+
+   
+
+     
+    <script type="module">
+          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+      
+        import { getAuth, signInWithEmailAndPassword,createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+        import{ getDatabase, ref, set, child, get, update, remove} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyBeJrUuRpEwhb4jreBldVcjOOIgk9WXhYY",
+  authDomain: "test-9162b.firebaseapp.com",
+  databaseURL: "https://test-9162b-default-rtdb.firebaseio.com",
+  projectId: "test-9162b",
+  storageBucket: "test-9162b.appspot.com",
+  messagingSenderId: "255786608700",
+  appId: "1:255786608700:web:177f0b2b1a72202795fb39",
+  measurementId: "G-17XW4FZVZ5"
+};
+
+        const app = initializeApp(firebaseConfig);
+      
+        
+    const auth=getAuth(app);
+    
+    
+    const db=getDatabase(app);
+
+    // var signupUsername=document.getElementById("signup-username");
+    // var signupMail=document.getElementById("signup-email");
+    // var signupPassword=document.getElementById("signup-password");
+
+
+
+        
+    // function isEmptyOrSpaces(str){
+    //     return str==null||str.match(/^ *$/) !==null;
+    // }
+    
+    
+    // function Validation(){
+    //     let signupemailregex=/^[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$/;
+    //     let signupnameregex=/^[a-zA-Z]+$/;
+    
+    //     if(isEmptyOrSpaces(signupMail.value)||isEmptyOrSpaces(signupPassword.value)||isEmptyOrSpaces(signupUsername.value)){
+    //         alert("You cannot leave any field empty!");
+          
+    //     }
+    //     if(!signupemailregex.test(signupMail.value)){
+    //         alert("Enter a valid email.");
+          
+    
+    //     }
+    //     if(!signupnameregex.test(signupUsername.value)){
+    //         alert("Enter a valid email.");
+         
+    
+    //     }
+    //     alert("You are signed in!")
+
+    // }
+    // document.getElementById("done").addEventListener("click",Validation)
+
+   done.addEventListener("click",(e)=>{
+    const adEmail=document.getElementById("signup-email").value;
+    const adPassword=document.getElementById("signup-password").value;
+    const adUsername=document.getElementById("signup-username").value;
+       createUserWithEmailAndPassword(auth,adEmail,adPassword)
+
+        .then((userCredential)=>{
+            const user = userCredential.user;
+            set(ref(db,"AdminList/"+adUsername),{
+                Username:adUsername,
+                Email:adEmail
+
+            })
+            alert("You are signed up!")
+            window.location.href="adminlogin.html";
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage)
+          }); 
+    });
+    
+    
+    </script>
+    
+</body>
+</html>

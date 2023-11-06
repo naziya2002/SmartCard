@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+     <style>
+      body{
+        background-color: #AEC6CF;
+      }
+      .container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100vh;
+  width: max-content;
+
+}
+
+.form-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: slide-in 1s ease-in-out;
+}
+
+@keyframes slide-in {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.custom-control-label {
+  color: #000;
+}
+
+.custom-switch .custom-control-input:checked~.custom-control-label::before {
+  background-color: #4e8cff;
+}
+
+.custom-switch .custom-control-input:checked~.custom-control-label::after {
+  background-color: #fff;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+button {
+  padding: 10px;
+  background-color: #4e8cff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3b6bbf;
+}
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="form-container">
+          <h3>Sign In</h3>
+          <input type="text" placeholder="Username" id="userInp" class="form-control mb-3">
+          <input type="email" placeholder="Email" id="emailInp" class="form-control mb-3">
+          <input type="password" placeholder="Password" id="passInp" class="form-control mb-3">
+          <div class="custom-control custom-switch mb-3">
+            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+            
+          </div>
+          <a href="./userreg.html" class="badge badge-secondary py-1 w-100">Want to Create A New Account?</a>
+          <button type="button" id="sub_btn" class="btn btn-outline-primary mt-3"><a href="./button.html">Login</a></button>
+        </div>
+      </div>
+    
+
+    <!--------------------------firebase config---------------------------->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js"
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js"
+        
+        const firebaseConfig = {
+  apiKey: "AIzaSyBeJrUuRpEwhb4jreBldVcjOOIgk9WXhYY",
+  authDomain: "test-9162b.firebaseapp.com",
+  databaseURL: "https://test-9162b-default-rtdb.firebaseio.com",
+  projectId: "test-9162b",
+  storageBucket: "test-9162b.appspot.com",
+  messagingSenderId: "255786608700",
+  appId: "1:255786608700:web:177f0b2b1a72202795fb39",
+  measurementId: "G-17XW4FZVZ5"
+};
+ 
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        const auth = getAuth();  
+    
+
+//  --------------------------------the references----------------------------------//
+    
+        // const email = document.getElementById('emailInp');
+        // const pass = document.getElementById('passInp');
+        // const submit = document.getElementById('sub_btn');
+     
+// //-----------------------------------authentication process--------------------------//
+
+
+//         function AutheticateUser(){
+//             const dbRef = ref(db);
+
+//             get(child(dbRef, "UsersLists/"+ username.value)).then((snapshot)=>{
+//                 if(snapshot.exists()){
+//                       let dbpass = decPass(snapshot.val().password);
+//                     if(dbpass == pass.value){
+//                         login();
+//                     }
+//                     else
+//                     {
+//                         alert("user does not not exists");
+//                     }
+//                 }
+//                 else{
+//                     alert("user or password is invalid");
+//                 }
+//             });
+//         }
+  
+// //----------------------------------decrypt process-------------------------------------//
+//           function decPass(){
+//              var pass12 = CryptoJS.AES.decrypt(dbpass , pass.value);
+//               return pass12.toString(CryptoJS.enc.Utf8);
+//           }         
+//  //-----------------------------------login----------------------------------------------//
+
+//     function login(user){
+//         let KeepLoggedIn = document.getElementById('cusstomswitch1').checked;
+
+//         if(!KeepLoggedIn){
+//             sessionStorage.setItem('user',JSON.stringify(user));
+//             window.location="home.html";
+//         }
+//         else{
+//             local.Storage.setItem('keepLoggedIn', 'yes');
+//             local.Storage.setItem('user', JSON.stringify(user));
+//             window.location('user')
+//         }
+//     }
+// //--------------------------------assign the events----------------------------------------------------//
+//    submit.addEventListener('click', AutheticateUser )
+
+// // document.getElementById("sub_btn").addEventListener("click",function(){
+// //     let email =document.getElementById("emailInp").value;
+// //     let pass =document.getElementById("passInp").value; 
+
+// //     signInWithEmailAndPassword(auth,email,pass)
+// //     .then((userCredential)=>{
+// //         const user = userCredential.user;
+// //         if (user)
+// //         alert("welcome")
+// //     })
+// //     .catch((error) => {
+// //         const errorCode = error.code;
+// //         const errorMessage = error.message;
+// //         alert(error)
+// //       }); 
+// // });
+
+// // submit.addEventListener("click", function() {
+// //  let email = emailInp;
+// //   console.log(email);
+// //  let password = passInp.value;
+// //   console.log(password);
+
+// //   signInWithEmailAndPassword(auth, email, password)
+// //     .then((userCredential) => {
+// //       // Signed in
+// //       const user = userCredential.user;
+// //       console.log("Success! Welcome back!");
+// //       if(user){
+// //       window.alert("Success! Welcome back!");
+// //       }
+// //       // ...
+// //     })
+// //     .catch((error) => {
+// //       const errorCode = error.code;
+// //       const errorMessage = error.message;
+// //       console.log("Error occurred. Try again.");
+// //       window.alert("Error occurred. Try again.");
+// //     });
+// // });
+
+sub_btn.addEventListener("click",(e)=>{
+    e.preventDefault(e)
+    const username = document.getElementById("userInp").value;
+    const useremail =document.getElementById("emailInp").value;
+    const userpass =document.getElementById("passInp").value;
+
+        signInWithEmailAndPassword(auth,useremail,userpass).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            alert(errorMessage)
+          }).then((userCredential)=>{
+            const user=userCredential.user;
+        if(user){
+            const dt=new Date();
+            update(ref(db,"UserRegister/"+username),{
+               last_login:dt,
+
+            })
+           alert("You are logged in!");
+
+          
+        } 
+        window.location.href="STUDENTMAIN.HTML";
+        })
+    })
+    </script>
+
+</body>
+</html>

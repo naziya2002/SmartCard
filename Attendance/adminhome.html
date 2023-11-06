@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attendance</title>
+    
+    <style>
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color:black
+}
+.background{
+    width: 97vw;
+    height: 100vh;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+        .form3{
+    /* display: none; */
+    position: fixed;
+    height: 270px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    margin: 30vh 75vh;
+    border-radius: 14px;
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+
+.form3 h3{
+    color: white;
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+    font-family: 'Poppins',sans-serif;
+    font-variant: small-caps;
+    letter-spacing: 0.5px;
+}
+
+
+.form3 .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+    cursor: pointer;
+    border-radius: 12px;
+
+
+}
+.form3 .buttons button{
+    border-radius: 12px;
+    padding: 7px 7px;
+    box-shadow: 2px 2px 2px rgb(150, 13, 13);
+    
+
+}
+.form3 .buttons a{
+    color: red;
+    font-weight: 600;
+    font-variant: small-caps;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+.form3 .buttons button:hover{
+    background-color: rgb(190, 166, 166);
+}
+@media (max-width:500px){
+    .background{
+        width: 97vw;
+        height: 100vh;
+    }
+    .form3{
+        width: 370px;
+        height: 250px;
+        margin: 30vh 15vw;
+    }
+}
+
+
+
+
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <form class="form3" id="form3">
+        <h3>attendance</h3>
+
+        <div class="buttons">
+           <button onclick="document.getElementById('form1').style.display='block'"><a id="admin" href="./admin-qr.html" >QR Code</a></button>
+
+            <button onclick="document.getElementById('form2').style.display='block'"><a id="user" href="./table.html" >View Attendance</a></button>
+        </div>  
+    </form>
+    
+</body>
+</html>
+

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Fee Payment Portal</title>
+    <style>
+        .labs{
+            display: flex;
+            width: 100px;
+        }
+        .input{
+            display:flexbox;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-3">
+        <table class="table table-dark">
+            <thead>
+                <th>Sno</th>
+                <th>Name</th>
+                <th>Mob-Number</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Year of Graduation</th>
+                <th>Yearly Fee</th>
+                <th>Control Center</th>
+                
+            </thead>
+            <tbody id="tbody1"></tbody>
+        </table>
+
+
+    </div>
+   <!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes(null)">  Add</button> -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="height:100%">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content" style="height:50%">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Control Pannel</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <label class="labs" >Name:</label>
+        <input type="text" id="NameMod" class="input">
+        <label class="labs" >Mob-Number:</label>
+        <input type="text" id="MobMod"class="input">
+        <label class="labs" >Email:</label>
+        <input type="text" id="EmailMod" class="input">
+        <label class="labs" >Course:</label>
+        <input type="text" id="CourseMod" class="input">
+        <label class="labs" >YearofGraduation:</label>
+        <input type="text" id="GradMod" class="input">
+        <label class="labs" >YearlyFee:</label>
+        <input type="text" id="FeeMod" class="input">
+       
+        </div>
+        <div class="modal-footer">
+          <button id="AddModBtn" type="button" class="btn btn-primary"  >Add</button>
+          <button id="UpdateModBtn" type="button" class="btn btn-success">Update</button>
+          <button id="DelModBtn" type="button" class="btn btn-danger" >Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+<script type="module">
+
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+        import { getDatabase,remove,set,update,ref,onValue,get,child} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.17.1/firebase-auth.js";
+       
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBeJrUuRpEwhb4jreBldVcjOOIgk9WXhYY",
+  authDomain: "test-9162b.firebaseapp.com",
+  databaseURL: "https://test-9162b-default-rtdb.firebaseio.com",
+  projectId: "test-9162b",
+  storageBucket: "test-9162b.appspot.com",
+  messagingSenderId: "255786608700",
+  appId: "1:255786608700:web:177f0b2b1a72202795fb39",
+  measurementId: "G-17XW4FZVZ5"
+};
+      const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db=getDatabase();
+
+      
+      
+
+
+
+
+
+
+
+function GetAllDataOnce(){
+    const dbref=ref(db);
+
+    get(child(dbref,"Fee/"))
+    .then((snapshot)=>{
+        var customer=[];
+        
+            snapshot.forEach(childSnapshot=>{
+                customer.push(childSnapshot.val())
+            })
+            AddAllItemsToTabe(customer);
+        })
+    
+}
+
+function GetAllDataRealtime(){
+    const dbref=ref(db,"Fee/");
+
+    onValue(dbref,(snapshot)=>{
+
+        var coustomer=[];
+        
+        snapshot.forEach(childSnapshot=>{
+            coustomer.push(childSnapshot.val())
+        })
+        AddAllItemsToTabe(coustomer);
+    })
+
+    
+}
+
+
+var name=document.getElementById('NameMod');
+var email=document.getElementById('MobMod');
+var mob_number=document.getElementById('EmailMod');
+var course=document.getElementById('CourseMod');
+var fee=document.getElementById('FeeMod');
+var graduation=document.getElementById('GradMod');
+
+
+
+var BTNmodAdd=document.getElementById('AddModBtn');
+var BTNmodUpdate=document.getElementById('UpdateModBtn');
+var BTNmodDel=document.getElementById('DelModBtn');
+
+function add(){
+            
+    set(ref(db,'Fee/'+name.value),{
+        
+       name:name.value,
+                email:email.value,
+                mob_number:mob_number.value,
+                graduation:graduation.value,
+                fee:fee.value,
+                course:course.value
+              
+    },
+    (error)=>{
+        if(error){
+            alert("record was not added,there was some Problem")
+        }
+        else{
+            alert("record was added");
+          
+        }
+    }).then(()=>{
+        alert("data Added")
+    })
+  .catch(()=>{
+    alert(error)
+  })
+     }
+     BTNmodAdd.addEventListener('click',add)    
+
+//update 
+   function updated(){
+            
+    update(ref(db,'Fee/'+name.value),{
+        
+        name:name.value,
+        graduation:graduation.value,
+        fee:fee.value,
+        course:course.value
+      
+
+    },
+    (error)=>{
+        if(error){
+            alert("record was not updated ,there was some Problem")
+        }
+        else{
+            alert("record was updated");
+            AddAllItemsToTabe();
+            $("exampleModalCenter").modal('hide')
+
+        }
+    }) .then(()=>{
+        alert("data updated")
+    })
+  .catch(()=>{
+    alert(error)
+  })
+   
+}
+BTNmodUpdate.addEventListener('click',updated)
+
+
+//del
+
+
+
+
+        window.onload=GetAllDataOnce();
+
+     
+    </script>
+    
+    <script>
+        var sno=0;
+var list=[];
+var tbody=document.getElementById('tbody1');
+
+        function AddItemToTable(name,num,email,course,ygrad,yearlyfee){
+            let trow=document.createElement("tr")
+            let td1=document.createElement("td")
+            let td2=document.createElement("td")
+            let td3=document.createElement("td")
+            let td4=document.createElement("td")
+            let td5=document.createElement("td")
+            let td6=document.createElement("td")
+            let td7=document.createElement("td")
+           list.push([name,num,email,course,ygrad,yearlyfee])
+            td1.innerHTML=++sno;
+            td2.innerHTML=name;
+            td3.innerHTML=num;
+            td4.innerHTML=email
+            td5.innerHTML=course;
+            td6.innerHTML=ygrad;
+            td7.innerHTML=yearlyfee;
+             
+            trow.appendChild(td1)
+            trow.appendChild(td2)
+            trow.appendChild(td3)
+            trow.appendChild(td4)
+            trow.appendChild(td5)
+trow.appendChild(td6)
+trow.appendChild(td7)
+var ControlDiv=document.createElement("div")
+ControlDiv.innerHTML='<button type="button" id="add" class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes(null)">  Add</button>'
+ControlDiv.innerHTML+='<button type="button" id="edit" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes('+sno+')"> Edit</button>'
+
+trow.appendChild(ControlDiv)
+tbody.appendChild(trow)
+        }
+      
+        function AddAllItemsToTabe(TheCostomer){
+        
+            sno=0;
+            tbody.innerHTML="";
+            TheCostomer.forEach(element=>{
+                AddItemToTable(element.name,element.mob_number,element.email,element.course,element. graduation,element.fee)
+            })
+        }
+
+
+        var ModName=document.getElementById('NameMod');
+        var ModNumber=document.getElementById('MobMod');
+        var ModEmail=document.getElementById('EmailMod');
+        var ModCourse=document.getElementById('CourseMod');
+        var ModGrad=document.getElementById('GradMod');
+        var ModFee=document.getElementById('FeeMod');
+
+       var BTNmodAdd=document.getElementById('AddModBtn');
+       var BTNmodUpdate=document.getElementById('UpdateModBtn');
+       var BTNmodDel=document.getElementById('DelModBtn');
+
+    
+        function FillTboxes(index){
+            if(index==null){
+                ModName.value="";
+                ModNumber.value="";
+                ModEmail.value="";
+                ModCourse.value="";
+                ModGrad.value="";
+                ModFee.value="";
+                BTNmodAdd.style.display='inline-block';
+                BTNmodUpdate.style.display='none';
+                BTNmodDel.style.display='none';
+
+
+            }
+            else{
+                --index
+                ModName.value=list[index][0];
+                ModNumber.value=list[index][1];
+                ModEmail.value=list[index][2];
+                ModCourse.value=list[index][3];
+                ModGrad.value=list[index][4];
+                ModFee.value=list[index][5]; 
+                ModNumber.disabled=true;
+                ModEmail.disabled=true;
+                BTNmodAdd.style.display='none';
+                BTNmodUpdate.style.display='inline-block';
+                BTNmodDel.style.display='none';
+
+            }
+
+        }
+        
+        
+    </script>
+</body>
+</html>

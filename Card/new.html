@@ -2,20 +2,20 @@
 <html>
 <head>
 	<title>SmartCard</title>
-	<link rel="stylesheet" type="text/css" href="./Css/new.css">
+	<link rel="stylesheet" type="text/css" href="../Css/new.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<img class="wave" src="./images/Untitled.jpeg">
+	<img class="wave" src="../images/Untitled.jpeg">
 	<div class="container">
 		<div class="img">
-			<img src="./images/bg.svg" class="filter-green">
+			<img src="../images/bg.svg" class="filter-green">
 		</div>
 		<div class="login-content">
 			<form action="index.html">
-				<img src="./images/profile.jfif">
+				
 				<h2 class="title">  Apply For New Card</h2>
            		<div class="input-div one">
            		   <div class="i">
@@ -61,8 +61,22 @@
                  <h5>Year of Graduation</h5>
                  <input type="text" class="input" id="year">
          </div>
-      </div>
-            	
+      
+      
+</div>
+
+
+<div class="input-div pass">
+  <div class="i"> 
+       <i ></i>
+  </div>
+  <div class="div">
+    <h5></h5>
+    <input type="text" value="Pending" class="input" id="request" disabled>
+</div>
+</div>
+
+
             	<input type="button" class="btn" value="Submit" id="submit">
             </form>
         </div>
@@ -86,16 +100,16 @@
   
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: "AIzaSyAsckFWdbd5meI9F3HqQU4Uu19pue238RM",
-    authDomain: "smartcard-b2ffb.firebaseapp.com",
-    databaseURL: "https://smartcard-b2ffb-default-rtdb.firebaseio.com",
-    projectId: "smartcard-b2ffb",
-    storageBucket: "smartcard-b2ffb.appspot.com",
-    messagingSenderId: "296414897032",
-    appId: "1:296414897032:web:f4a7c006ba4a6676f7903d",
-    measurementId: "G-5PQNX952CR"
-  };
-  const app = initializeApp(firebaseConfig);
+  apiKey: "AIzaSyBeJrUuRpEwhb4jreBldVcjOOIgk9WXhYY",
+  authDomain: "test-9162b.firebaseapp.com",
+  databaseURL: "https://test-9162b-default-rtdb.firebaseio.com",
+  projectId: "test-9162b",
+  storageBucket: "test-9162b.appspot.com",
+  messagingSenderId: "255786608700",
+  appId: "1:255786608700:web:177f0b2b1a72202795fb39",
+  measurementId: "G-17XW4FZVZ5"
+};
+const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     
   
@@ -109,7 +123,7 @@
    var roll_number=document.getElementById('roll_number');
    var year=document.getElementById('year');
     var button=document.getElementById('submit');
-  
+  var request=document.getElementById('request')
    function data(){
     
     set(ref(db,'NewCard/'+name.value),{
@@ -119,7 +133,8 @@
         email:email.value,
         ph_number:ph_number.value,
         roll_number:roll_number.value,
-year:year.value
+year:year.value,
+request:request.value
         
     })
     .then(()=>{

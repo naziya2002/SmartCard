@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Monoton&display=swap');
+        
+        .home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #AEC6CF;
+}
+
+.para {
+  font-size: 24px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #2dc5fc;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #6bc8ea;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="home">
+        <p class="para">Add your attendance for today</p>
+    
+        <input placeholder="Username" id="name">
+        <button id="attendance_btn" class="initial"><a href="#">Add my attendance.</a></button>
+   </div>
+   <script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-analytics.js";
+        import { getDatabase, ref, set,get,child,update,remove } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+        import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword }  from "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+    
+        const firebaseConfig = {
+  apiKey: "AIzaSyBeJrUuRpEwhb4jreBldVcjOOIgk9WXhYY",
+  authDomain: "test-9162b.firebaseapp.com",
+  databaseURL: "https://test-9162b-default-rtdb.firebaseio.com",
+  projectId: "test-9162b",
+  storageBucket: "test-9162b.appspot.com",
+  messagingSenderId: "255786608700",
+  appId: "1:255786608700:web:177f0b2b1a72202795fb39",
+  measurementId: "G-17XW4FZVZ5"
+};
+ 
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getDatabase(app);
+        const auth = getAuth();
+           
+const name=document.getElementById("name")
+      
+   
+        function LikeButton() {
+    const dbref = ref(db);
+
+    get(child(dbref, "UserRegister/"+name.value)).then((snapshot)=>{
+        if(snapshot.exists()){
+            var val = snapshot.val().Attendance;
+            update(ref(db, "UserRegister/"+name.value),{
+                Attendance: Number(val) + 1,
+            })
+            .then(()=>{
+                alert("data enter successful");
+                window.location.href="../LOGINS/userlogin.html";
+            })
+            .catch((error)=>{
+                alert("unsuccessful, error="+error);
+            });
+        }
+        else{
+            alert("No data found");
+        }
+    })
+    .catch((error)=>{
+        alert("unsuccessful, error="+error);
+    });
+    
+  
+}
+const button=document.getElementById("attendance_btn")
+    button.addEventListener("click",LikeButton)
+
+</script>
+</body>
+</html>
+
