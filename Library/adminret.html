@@ -8,7 +8,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Card Portal</title>
+    <title>Fee Payment Portal</title>
     <style>
         .labs{
             display: flex;
@@ -26,13 +26,11 @@
             <thead>
                 <th>Sno</th>
                 <th>Name</th>
-               
                 <th>Email</th>
-                <th>Mob-Number</th>
-                <th>RollNumber</th>
-                <th>Year of Graduation</th>
-                <th>Status</th>
-                <th>Control Center</th>
+                <th>Roll  Number</th>
+                <th>Course</th>
+                <th>BookIssued</th>
+      <th>Control Center</th>
                 
             </thead>
             <tbody id="tbody1"></tbody>
@@ -56,21 +54,20 @@
         <div class="modal-body">
         <label class="labs" >Name:</label>
         <input type="text" id="NameMod" class="input">
-        <label class="labs" >Mob-Number:</label>
-        <input type="text" id="MobMod"class="input">
         <label class="labs" >Email:</label>
         <input type="text" id="EmailMod" class="input">
-        <label class="labs" >Rollnumber</label>
+        <label class="labs" >Roll Number</label>
+        <input type="text" id="RollNumber" class="input">
+       
+        <label class="labs" >Course:</label>
         <input type="text" id="CourseMod" class="input">
-        <label class="labs" >YearofGraduation:</label>
-        <input type="text" id="GradMod" class="input">
-        <label class="labs" >Status</label>
-        <input type="text" id="FeeMod" class="input">
+        <label class="labs" >BookIssued</label>
+        <input type="text" id="Book" class="input">
        
         </div>
         <div class="modal-footer">
-          <button id="AddModBtn" type="button" class="btn btn-primary"  >Add</button>
-          <button id="UpdateModBtn" type="button" class="btn btn-success">Update</button>
+          <!-- <button id="AddModBtn" type="button" class="btn btn-primary"  >Add</button>
+          <button id="UpdateModBtn" type="button" class="btn btn-success">Update</button> -->
           <button id="DelModBtn" type="button" class="btn btn-danger" >Delete</button>
         </div>
       </div>
@@ -95,7 +92,6 @@
        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAsckFWdbd5meI9F3HqQU4Uu19pue238RM",
@@ -123,7 +119,7 @@ const firebaseConfig = {
 function GetAllDataOnce(){
     const dbref=ref(db);
 
-    get(child(dbref,"NewCard/"))
+    get(child(dbref,"BOOKISSUED/"))
     .then((snapshot)=>{
         var customer=[];
         
@@ -136,7 +132,7 @@ function GetAllDataOnce(){
 }
 
 function GetAllDataRealtime(){
-    const dbref=ref(db,"NewCard/");
+    const dbref=ref(db,"BOOKISSUED/");
 
     onValue(dbref,(snapshot)=>{
 
@@ -153,11 +149,10 @@ function GetAllDataRealtime(){
 
 
 var name=document.getElementById('NameMod');
-var email=document.getElementById('MobMod');
-var ph_number=document.getElementById('EmailMod');
-var roll_number=document.getElementById('CourseMod');
-var request=document.getElementById('FeeMod');
-var year=document.getElementById('GradMod');
+var email=document.getElementById('EmailMod');
+var roll_number=document.getElementById('RollNumber');
+var course=document.getElementById('CourseMod');
+var book=document.getElementById('Book');
 
 
 
@@ -165,70 +160,78 @@ var BTNmodAdd=document.getElementById('AddModBtn');
 var BTNmodUpdate=document.getElementById('UpdateModBtn');
 var BTNmodDel=document.getElementById('DelModBtn');
 
-function add(){
+// function add(){
             
-    set(ref(db,'NewCard/'+name.value),{
+//     set(ref(db,'BOOKISSUED/'+name.value),{
         
-      name:name.value,
-      email:email.value,
-      ph_number:ph_number.value,
-      roll_number:roll_number,
-      year:year.value,
-      request:request.value
+//        name:name.value,
+//                 email:email.value,
+//                 roll_number:roll_number.value,
+//                 course:course.value,
+//                 book:book.value,
               
-    },
-    (error)=>{
-        if(error){
-            alert("record was not added,there was some Problem")
-        }
-        else{
-            alert("record was added");
+//     },
+//     (error)=>{
+//         if(error){
+//             alert("record was not added,there was some Problem")
+//         }
+//         else{
+//             alert("record was added");
           
-        }
-    }).then(()=>{
-        alert("data Added")
-    })
-  .catch(()=>{
-    alert(error)
-  })
-     }
-     BTNmodAdd.addEventListener('click',add)    
+//         }
+//     }).then(()=>{
+//         alert("data Added")
+//     })
+//   .catch(()=>{
+//     alert(error)
+//   })
+//      }
+//      BTNmodAdd.addEventListener('click',add)    
 
-//update 
-   function updated(){
+// //update 
+//    function updated(){
             
-    update(ref(db,'NewCard/'+name.value),{
+//     update(ref(db,'BOOKISSUED/'+name.value),{
         
-        name:name.value,
-      email:email.value,
-      ph_number:ph_number.value,
-      roll_number:roll_number,
-      year:year.value,
-      request:request.value  
+//         book:book.value
+      
 
-    },
-    (error)=>{
-        if(error){
-            alert("record was not updated ,there was some Problem")
-        }
-        else{
-            alert("record was updated");
-            AddAllItemsToTabe();
-            $("exampleModalCenter").modal('hide')
+//     },
+//     (error)=>{
+//         if(error){
+//             alert("record was not updated ,there was some Problem")
+//         }
+//         else{
+//             alert("record was updated");
+//             AddAllItemsToTabe();
+//             $("exampleModalCenter").modal('hide')
 
-        }
-    }) .then(()=>{
-        alert("data updated")
-    })
-  .catch(()=>{
-    alert(error)
-  })
+//         }
+//     }) .then(()=>{
+//         alert("data updated")
+//     })
+//   .catch(()=>{
+//     alert(error)
+//   })
    
-}
-BTNmodUpdate.addEventListener('click',updated)
+// }
+// BTNmodUpdate.addEventListener('click',updated)
 
 
 //del
+function DeleteData(){
+ remove(ref(db,'BOOKISSUED/'+name.value))
+ .then(()=>{
+    alert("Data Deleted Sucessfully")
+ })
+ .catch((error)=>{
+    alert("Unsuccessful")
+    console.log(error)
+
+ })
+}
+BTNmodDel.addEventListener('click',DeleteData)
+
 
 
 
@@ -243,7 +246,7 @@ BTNmodUpdate.addEventListener('click',updated)
 var list=[];
 var tbody=document.getElementById('tbody1');
 
-        function AddItemToTable(name,email,ph_number,roll_number,year,request){
+function AddItemToTable(name,email,rnum,course,book){
             let trow=document.createElement("tr")
             let td1=document.createElement("td")
             let td2=document.createElement("td")
@@ -251,52 +254,50 @@ var tbody=document.getElementById('tbody1');
             let td4=document.createElement("td")
             let td5=document.createElement("td")
             let td6=document.createElement("td")
-            let td7=document.createElement("td")
-           list.push([name,email,ph_number,roll_number,year,request])
-            td1.innerHTML=++sno;
-            
+           list.push([name,email,rnum,course,book])
+           td1.innerHTML=++sno;
             td2.innerHTML=name;
+         
+            td3.innerHTML=email;
 
-             td4.innerHTML=email
-              td3.innerHTML=ph_number;
-          
-            td5.innerHTML=roll_number;
-            td6.innerHTML=year;
-            td7.innerHTML=request;
-             
+            td4.innerHTML=rnum;
+            td5.innerHTML=course;
+
+            td6.innerHTML=book;
+            
             trow.appendChild(td1)
             trow.appendChild(td2)
             trow.appendChild(td3)
             trow.appendChild(td4)
             trow.appendChild(td5)
 trow.appendChild(td6)
-trow.appendChild(td7)
+
 var ControlDiv=document.createElement("div")
-ControlDiv.innerHTML='<button type="button" id="add" class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes(null)">  Add</button>'
-ControlDiv.innerHTML+='<button type="button" id="edit" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes('+sno+')"> Edit</button>'
+// ControlDiv.innerHTML='<button type="button" id="add" class="btn btn-primary my-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes(null)">  Add</button>'
+// ControlDiv.innerHTML+='<button type="button" id="edit" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes('+sno+')"> Edit</button>'
+ControlDiv.innerHTML+='<button type="button" id="delete" class="btn btn-primary my-2 ml-2" data-toggle="modal" data-target="#exampleModalCenter" onclick="FillTboxes('+sno+')">Delete</button>'
 
 trow.appendChild(ControlDiv)
 tbody.appendChild(trow)
         }
       
         function AddAllItemsToTabe(TheCostomer){
-        
             sno=0;
             tbody.innerHTML="";
             TheCostomer.forEach(element=>{
-                AddItemToTable(element.name,element.email,element.ph_number,element.roll_number,element.year,element.request)
+                AddItemToTable(element.name,element.email,element.roll_number,element.course,element.book)
             })
         }
 
 
         var ModName=document.getElementById('NameMod');
-        var ModNumber=document.getElementById('MobMod');
         var ModEmail=document.getElementById('EmailMod');
+       
+        var RollNumber=document.getElementById('RollNumber');
         var ModCourse=document.getElementById('CourseMod');
-        var ModGrad=document.getElementById('GradMod');
-        var ModFee=document.getElementById('FeeMod');
-
-        var BTNmodAdd=document.getElementById('AddModBtn');
+        var ModBook=document.getElementById('Book');
+      
+       var BTNmodAdd=document.getElementById('AddModBtn');
        var BTNmodUpdate=document.getElementById('UpdateModBtn');
        var BTNmodDel=document.getElementById('DelModBtn');
 
@@ -325,11 +326,7 @@ tbody.appendChild(trow)
                 ModFee.value=list[index][5]; 
                 ModNumber.disabled=true;
                 ModEmail.disabled=true;
-                ModName.disabled=true;
-                ModCourse.disabled=true;
-                ModGrad.disabled=true
-
-                  BTNmodAdd.style.display='none';
+                BTNmodAdd.style.display='none';
                 BTNmodUpdate.style.display='inline-block';
                 BTNmodDel.style.display='none';
 

@@ -10,17 +10,15 @@
     <title>SmartCard</title>
 </head>
 <body>
-    <h3>Card Details</h3>
     <div class="container mt-3">
         <table class="table table-dark">
             <thead>
                 <th>Sno</th>
                 <th>Name</th>
-                <th>Mob-Number</th>
                 <th>Email</th>
                 <th>Roll  Number</th>
-                <th>Year Of Graduation</th>
-                <th>Status</th>
+                <th>Course</th>
+                <th>BookIssued</th>
 
                 
             </thead>
@@ -35,7 +33,7 @@
 var sno=0;
 var tbody=document.getElementById('tbody1');
 
-        function AddItemToTable(name,num,email,rnum,year,status){
+        function AddItemToTable(name,email,rnum,course,book){
             let trow=document.createElement("tr")
             let td1=document.createElement("td")
             let td2=document.createElement("td")
@@ -43,18 +41,19 @@ var tbody=document.getElementById('tbody1');
             let td4=document.createElement("td")
             let td5=document.createElement("td")
             let td6=document.createElement("td")
-            let td7=document.createElement("td")
-
+        
            
            
             td1.innerHTML=++sno;
             td2.innerHTML=name;
-            td3.innerHTML=num;
-            td4.innerHTML=email
-            td5.innerHTML=rnum;
-            td6.innerHTML=year;
-            td7.innerHTML=status;
+         
+            td3.innerHTML=email;
 
+            td4.innerHTML=rnum;
+            td5.innerHTML=course;
+
+            td6.innerHTML=book;
+           
              
             trow.appendChild(td1)
             trow.appendChild(td2)
@@ -63,7 +62,6 @@ var tbody=document.getElementById('tbody1');
             trow.appendChild(td5)
            
 trow.appendChild(td6)
-trow.appendChild(td7)
 tbody.appendChild(trow)
 
 
@@ -75,7 +73,7 @@ tbody.appendChild(trow)
             sno=0;
             tbody.innerHTML="";
             TheCostomer.forEach(element=>{
-                AddItemToTable(element.name,element.ph_number,element.email,element.roll_number,element.year,element.request)
+                AddItemToTable(element.name,element.email,element.roll_number,element.course,element.book)
             })
         }
 
@@ -90,7 +88,7 @@ tbody.appendChild(trow)
         // Your web app's Firebase configuration
         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-       // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyAsckFWdbd5meI9F3HqQU4Uu19pue238RM",
   authDomain: "smartcard-b2ffb.firebaseapp.com",
@@ -117,7 +115,7 @@ const firebaseConfig = {
 function GetAllDataOnce(){
     const dbref=ref(db);
 
-    get(child(dbref,"NewCard/"))
+    get(child(dbref,"BOOKISSUED/"))
     .then((snapshot)=>{
         var customer=[];
         
@@ -130,7 +128,7 @@ function GetAllDataOnce(){
 }
 
 function GetAllDataRealtime(){
-    const dbref=ref(db,"NewCard/");
+    const dbref=ref(db,"BOOKISSUED/");
 
     onValue(dbref,(snapshot)=>{
 

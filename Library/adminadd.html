@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fee Payment Portal</title>
-    <link href="./fee.css" rel="stylesheet">
+    <title>Library Portal</title>
+    <link href="./adminadd.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
     <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
@@ -17,44 +17,44 @@
 <body class="main_bg">
     <div class="form">
         <div class="form-text">
-            <h1><span><img src="./imgs/art-1.png" alt=""></span>Fee Payment<span><img src="./imgs/art-1.png" alt=""></span></h1>
+            <h1><span><img src="./imgs/art-1.png" alt=""></span>Library<span><img src="./imgs/art-1.png" alt=""></span></h1>
             <p></p>
         </div>
         <div class="main-form">
             <form >
                 <div>
-                    <span>Your full name ?</span>
+                    <span>Student full name ?</span>
                     <input type="text"  id="name" placeholder="Write your name here..." >
                 </div>
                 <div>
-                    <span>Your email address</span>
+                    <span>Student email address</span>
                     <input type="email"  id="email" placeholder="Write your email here..." > 
                 </div>
                 <div>
-                    <span>Mob_Number</span>
-                    <input type="number"  id="mob_number" placeholder="number" >
+                    <span>Roll_Number</span>
+                    <input type="number"  id="roll_number" placeholder="number" >
                 </div>
                 <div>
                     <span>Course </span>
                     <input type="text"  id="course" placeholder="" >
                 </div>
                 <div>
-                    <span>Year Of Graduation</span>
-                    <input type="text"  id="graduation" placeholder="" >
-                </div>
+                    <span>Book Issued</span>
+                    <input type="text"  id="book" placeholder="" >
+                <!-- </div>
                    <div>
                     <span>Yearly Fee </span>
                     <input  type="text"  id="fee"  placeholder="Enter Fee" >
-                </div>
+                </div> -->
                 <div class="submit">
                     <input type="button"  value="SUBMIT" id="submit">
                 </div>
 
 
             </form>
-            <div class="submit">
+            <!-- <div class="submit">
               <a href="./payment.html"><input type="button"  value="Proceed To Pay" id=""></a>  
-            </div>
+            </div> -->
 
             
         </div>
@@ -114,25 +114,23 @@ const firebaseConfig = {
            var email=document.getElementById('email');
            var mob_number=document.getElementById('mob_number');
            var course=document.getElementById('course');
-           var fee=document.getElementById('fee');
-           var graduation=document.getElementById('graduation');
+           var book=document.getElementById('book');
            var button=document.getElementById('submit');
           
-           function data(event){
+           function data(){
             event.preventDefault();
             
-            set(ref(db,'Fee/'+name.value),{
+            set(ref(db,'BOOKISSUED/'+name.value),{
                 
                 name:name.value,
                 email:email.value,
-                mob_number:mob_number.value,
-                graduation:graduation.value,
-                fee:fee.value,
-                course:course.value
+                roll_number:roll_number.value,
+                course:course.value,
+                book:book.value
                 
             })
             .then(()=>{
-                alert("Please Proceed To Pay")
+                alert("Book Issued")
             })
           .catch(()=>{
             alert(error)
